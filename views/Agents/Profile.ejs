@@ -1,7 +1,99 @@
 <!DOCTYPE html>
 <html>
-    <head><title>Agent Profile</title> </head>
+    <head>
+        <title>Agent Profile</title> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
     <body>
-        <h1>This is Agent <%=Agent.Name%></h1>
+        <!--=================================================-->
+        <!--Navbar Try To MAke it SPA->
+        <!--=================================================-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Welcome <%=Agent[0].Name%></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">My Profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Update Property Detail</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Property Detail</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <div class="container">
+            <div class="Profile">
+                <h1>Agent Profile</h1>
+                <div class="Details">
+                   <img src="<%=Agent[0].Agent_img_link%>" class="Profile_Image"><br>
+                   <a href="#" class="btn btn-outline-danger btn-sm">Change Image</a>
+                   <br>
+                   Agent ID: <%=Agent[0].Agent_ID%>
+                   <br>
+                   <div class="Agent_Name">
+                       Agent Name: <%=Agent[0].Name%>
+                       <a href="#" class="btn btn-outline-danger btn-sm">Update</a>
+                       <br>
+                       Email: <%=Agent[0].Email_ID%>
+                       <a href="#" class="btn btn-outline-danger btn-sm">Update</a>
+                       <br>
+                       Joined on: <%= Agent[0].Agent_Joining_Date%>
+                       <br>
+                       <a href="#" class="btn btn-outline-danger btn sm">Change Password</a>
+                   </div>
+                </div>
+             </div>
+             <h1>Agent Sale Property Deatils</h1>
+             <div class="Sale_Rent_Table">
+                <table style="width:100%">
+                    <tr>
+                      <th>Property_ID</th>
+                      <th>Deal Status</th>
+                      <th>Property Details</th>
+                    </tr>
+                    <%ForSale.forEach(function(property){%>
+                        <tr>
+                            <td><%=property.Property_ID%></td>
+                            <td><%if(property.Date_Of_Deal!==null){%>
+                                <a herf="#" class="btn btn-success btn-sm">View Deal Details</a>
+                            <%}else{%>
+                                <span class="btn btn-danger btn-sm">Not Sold</a>
+                                <%}%></td>
+                            <td><a href="#" class="btn btn-info btn-sm">View Property Details</a></td>
+                          </tr>
+                    <%})%>
+                  </table> 
+             </div>
+             <h1>Agent Rent Property Deatils</h1>
+             <div class="Sale_Rent_Table">
+                <table style="width:100%">
+                    <tr>
+                      <th>Property_ID</th>
+                      <th>Deal Status</th>
+                      <th>Property Details</th>
+                    </tr>
+                    <%ForRent.forEach(function(property){%>
+                        <tr>
+                            <td><%=property.Property_ID%></td>
+                            <td><%if(property.Date_Of_Deal!==null){%>
+                                <a herf="#" class="btn btn-success btn-sm">View Deal Details</a>
+                            <%}else{%>
+                                <a herf="#" class="btn btn-danger btn-sm">Not Sold</a>
+                                <%}%></td>
+                            <td><a href="#" class="btn btn-info btn-sm">View Property Details</a></td>
+                          </tr>
+                    <%})%>
+                  </table> 
+             </div>
+          </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>

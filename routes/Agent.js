@@ -64,12 +64,27 @@ router.post('/login', function(req, res) {
     }
 });
 router.get("/Profile/:id", function(req,res){
-    connection.query("Select * from Agent where Agent_ID= ?",[req.params.id], function(err,result){
+    //Make this code clearer by making deep copies in js
+    connection.query("Select * from Agent where Agent_ID= ?",[req.params.id], function(err,foundAgent){
         if(err){
             console.log(err);
         }else{
-            console.log(result);
-            res.render("./Agents/Profile",{Agent:result});
+            //console.log("Selected Agent is ");
+            //console.log(result);
+            connection.query("Select Property_ID,Price, Date_Of_Deal from Sale where Property_ID in (Select Property_ID from Property where Agent_ID= ?)",[req.params.id], function(err, foundSale){
+                if(err){
+                    console.log(err);
+                }else{
+                    connection.query("Select Property_ID,Rent_PM, Date_Of_Deal from Rent where Property_ID in (Select Property_ID from Property where Agent_ID= ?)",[req.params.id], function(err, foundRent){
+                        if(err){
+                            console.log(err);
+                        }else{
+                                //Add Utility Queries
+                                res.render("./Agents/Profile",{Agent:foundAgent, ForSale: foundSale, ForRent:foundRent});
+                        }
+                    });
+                }
+            });
         }
     });
 });
