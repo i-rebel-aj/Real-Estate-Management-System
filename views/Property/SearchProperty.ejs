@@ -1,0 +1,68 @@
+<%-include("../partials/header")%>
+<h1>Advanced Property Search</h1>
+<div class="container">
+  <form action="/Property/search" method="POST">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputState">Type</label>
+        <select id="inputState" class="form-control" name="Type">
+          <option selected>Rent</option>
+          <option>Sale</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputPassword4">Minimum Area</label>
+        <input type="text" class="form-control" placeholder="Minimum Plot_Area" name="Plot_Area">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputState">Facing Direction</label>
+        <select id="inputState" class="form-control" name="Face_Direction">
+          <option selected>North</option>
+          <option>South</option>
+          <option>East</option>
+          <option>West</option>
+          <option>North-East</option>
+          <option>North-West</option>
+          <option>South-East</option>
+          <option>South-West</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputCity">District</label>
+        <input type="text" class="form-control" id="inputCity" placeholder="District" name="District">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputState">State</label>
+        <select id="inputState" class="form-control" name="State">
+          <option selected>Assam</option>
+          <option>Haryana</option>
+          <option>Uttrakhand</option>
+          <option>Uttar Pradesh</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputZip">Street</label>
+        <input type="text" class="form-control" placeholder="Street" name="Street">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputZip">PinCode</label>
+        <input type="text" class="form-control" id="inputZip" name="Postal_Code" placeholder="Postal Code">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputZip">Maximum Rent(P.M)/Price</label>
+        <input type="text" class="form-control" id="inputZip" name="Price" placeholder="Amout in Rs">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputZip">Number of Bedrooms</label>
+        <input type="text" class="form-control" id="inputZip" placeholder="# of Bedrooms" name="Bed_Count">
+      </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+</div>
+<%-include("../partials/footer")%>

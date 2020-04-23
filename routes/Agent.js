@@ -12,11 +12,9 @@ connection.connect(function(err){
     if(err){
         console.log(err);
     }else{
-        console.log("Connected");
+        console.log("Connected For The Agent Route");
     }
 });
-
-
 router.get("/",function(req,res){
     //Run The Required Queries
     connection.query("select * from Agent order by Agent_ID", function(err, result){
@@ -88,4 +86,5 @@ router.get("/Profile/:id", function(req,res){
         }
     });
 });
+//connection.end();
 module.exports=router;
