@@ -1,7 +1,47 @@
 <%-include("../partials/header")%>
-<h1>Searched Properties will be shown here</h1>
+<h3><%=Property.length%> Results Found</h3>
+<!--Preferably Place Everything Inside a Data Table-->
+<div class="container">
+    <%for(var i=0;i<Property.length;i++){%>	
+        <div class="card">
+            <img class="card-img-top" src="https://dummyimage.com/qvga" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Property Name: <%=Property[i].Property_Name%></h5>
+              <p class="card-text">Property Description: <%=Property[i].Description%></p>
+              <h6 class="card-title">Property Details</h6>
+              Facing Side: <%=Property[i].Facing_Direction%>
+              <br>
+              Furnishing: <%=Property[i].Furnishing%>
+              <br>
+              Age Of Construction: <%=Property[i].Age_of_Construction_%>
+              <br>
+              Plot_Area: <%=Property[i].Plot_Area%>
+              <br>
+              <h6 class="card-title">Address</h6>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Unit Number: <%=Property[i].Unit_NO%></li>
+              <li class="list-group-item">Building: <%=Property[i].Building%></li>
+              <li class="list-group-item">Street: <%=Property[i].Street%></li>
+              <li class="list-group-item">Sector: <%=Property[i].Sector%></li>
+              <li class="list-group-item">District: <%=Property[i].district%></li>
+              <li class="list-group-item">Postal Code: <%=Property[i].Postal_code%></li>
+              <li class="list-group-item">State: <%=Property[i].State%></li>
+            </ul>
+            <h6 class="card-title">Pricing And Other Details</h6>
+            <ul class="list-group list-group-flush">
+              <%if(Type==="Rent"){%>
+                    <li class="list-group-item">Rent Per Month: <%=Property[i].Rent_PM%></li>
+                    <li class="list-group-item">Preferred:  <%=Property[i].Preferred%></li>
+                    <li class="list-group-item">Contract Duration: <%=Property[i].Contract_Duration%></li>
+                    <li class="list-group-item">Type of Ownership: <%=Property[i].Type_Of_Ownership%></li>
+              <%}else{%>
+                    <li class="list-group-item">Booking Price: <%=Property[i].Booring_Price%></li>
+                    <li class="list-group-item">Price:  <%=Property[i].Price%></li>
+                <%}%>
+            </ul>
+            <a href="/Agent/Profile/<%=Property[i].Agent_ID%>" class="btn btn-outline-info ">Contact Agent</a>
+            </div>
+          </div>
+    <%}%>
+</div>
 <%-include("../partials/footer")%>
-<!--
-<%for(var i=0;i<Property.length;i++){%>	
-<%}%>
--->

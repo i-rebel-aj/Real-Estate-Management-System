@@ -14,16 +14,43 @@ connection.connect(function(err){
         console.log("Connected For The Property Route");
     }
 });
+/*==========================================
+    Route To Display Landing Page
+============================================*/
 router.get("/", function(req,res){
     res.send("Property Landing Goes here");
 });
+/*==========================================
+    Route To Display Property Search Form
+============================================*/
 router.get("/search", function(req,res){
-    res.send("Form To Search for property will be shown here");
-    //res.render("./Property/ShowProperty");
+    //res.send("Form To Search for property will be shown here");
+    res.render("./Property/SearchProperty");
 });
+
+/*==========================================
+    Route To Display Results
+============================================*/
 router.get("/search/result", function(req,res){
-    res.send("Search Results Are Displayed here");
-    console.log(req.query.valid);
+    //res.send("Search Results Are Displayed here");
+    var str=req.query.valid;
+    var Type;
+    if((str.match(/Sale/g) || []).length===0){
+        //console.log("This contains Rent");
+        Type="Rent";
+    }else{
+        console.log("This Contains Sale");
+        Type="Sale";
+    }
+    connection.query(req.query.valid, function(err, foundProperty){
+        if(err){
+            console.log(err);
+        }else{
+            console.log(foundProperty);
+            res.render("./Property/ShowProperty",{Property: foundProperty, Type:Type});
+        }
+    });
+    //console.log(req.query.valid);
 });
 router.post("/search", function(req,res)
 {
@@ -31,33 +58,43 @@ router.post("/search", function(req,res)
 
     var countprop=0,countadd=0, countDeal=0;
     console.log(req.body);
-    var queryMain="Select Property_id from ";
+    var queryMainSale="select Property.*, Address.*,BHK_Det.* ,Sale.* from Property, Address, BHK_Det, Sale where Sale.Property_id = Property.Property_id AND Sale.Property_id=Address.Property_id AND Sale.Property_id=BHK_Det.Property_id AND Sale.Property_id in "
+    var queryMainRent="select Property.*, Address.*,BHK_Det.* ,Rent.* from Property, Address, BHK_Det, Rent where Rent.Property_id = Property.Property_id AND Rent.Property_id=Address.Property_id AND Rent.Property_id=BHK_Det.Property_id AND Rent.Property_id in "
+    var querySaleRent="Select Property_id from ";
     var queryAdd="Select Property_id from Address "
     var queryBHK="Select Property_id from BHK_Det "
     var queryProp="Select Property_id from Property "
     /*==============================================
+        Dealing with main string
+    ===============================================*/
+    if(req.body.Type==="Rent"){
+        queryMain=queryMainRent;
+    }else{
+        queryMain=queryMainSale;
+    }
+    /*==============================================
         Dealing with Sale/Rent
     ==============================================*/
-    queryMain=queryMain+req.body.Type;
+    querySaleRent=querySaleRent+req.body.Type;
     if(req.body.Price!==''){
         if(req.body.Type==="Sale"){
-            queryMain=queryMain+" where Price = "+req.body.Price;
+            querySaleRent=querySaleRent+" where Price <= "+req.body.Price;
         }else if(req.body.Type==="Rent"){
-            queryMain=queryMain+" where Rent_PM = "+req.body.Price;
+            querySaleRent=querySaleRent+" where Rent_PM <= "+req.body.Price;
         }
         countDeal++;
     }
     //This statement should come at last
     if(countDeal===0){
-        queryMain=queryMain+" where Property_id in ";
+        querySaleRent=querySaleRent+" where Property_id in ";
     }else if(countDeal>0){
-        queryMain=queryMain+" AND Property_id in ";
+        querySaleRent=querySaleRent+" AND Property_id in ";
     }
     /*===============================================
         Dealing with BHK Details
     ================================================*/
     if(req.body.Bed_Count!==''){
-        queryBHK=queryBHK+"where No_of_Bedrooms = "+req.body.Bed_Count;
+        queryBHK=queryBHK+"where No_of_Bedrooms >= "+req.body.Bed_Count;
     }
     /*===============================================
         Dealing With Property Types Only
@@ -116,11 +153,13 @@ router.post("/search", function(req,res)
     queryProp="("+queryProp+")";
     queryBHK="("+queryBHK+")";
     queryAdd="("+queryAdd+")";
-    //console.log(queryMain);
+    //console.log(querySaleRent);
     //console.log(queryProp);
     //console.log(queryBHK);
     //console.log(queryAdd);
-    var ans=queryMain+queryProp+" AND Property_id in "+queryBHK+" AND Property_id in "+queryAdd;
+    var ans=querySaleRent+queryProp+" AND Property_id in "+queryBHK+" AND Property_id in "+queryAdd;
+    ans=queryMain+"("+ans+")";
+    //console.log(ans);
     /*===========================================================
             BIG SECURITY ISSUE FIX IT
     ============================================================*/
@@ -128,6 +167,9 @@ router.post("/search", function(req,res)
     var search=encodeURIComponent(ans);
     res.redirect("/Property/search/result?valid="+search);
 });
+/*=======================================
+    To Handle Erroes (Shift to app.js)
+=========================================*/
 router.get("*", function(req,res){
     res.send("What You are looking for has not been found");
 });
