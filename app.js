@@ -15,6 +15,12 @@ app.use("/", indexRoutes);
 app.use("/Agent", AgentRoute);
 app.use("/Property", PropertyRoute);
 
+/*=======================================
+    To Handle Errors 
+=========================================*/
+app.get("*", function(req,res){
+    res.send("What You are looking for has not been found");
+});
 app.listen(3000,function(){
     console.log("Server is Running");
 })

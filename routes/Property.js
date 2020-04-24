@@ -29,7 +29,7 @@ router.get("/search", function(req,res){
 });
 
 /*==========================================
-    Route To Display Results
+    Route To Display Seach Results
 ============================================*/
 router.get("/search/result", function(req,res){
     //res.send("Search Results Are Displayed here");
@@ -52,6 +52,9 @@ router.get("/search/result", function(req,res){
     });
     //console.log(req.query.valid);
 });
+/*===============================================================
+    Post Request To Handle Search And Generate A Dynamic Query 
+=================================================================*/
 router.post("/search", function(req,res)
 {
     //Constructing A Dynamic Query all the fiven blocks much be synchronous
@@ -166,11 +169,5 @@ router.post("/search", function(req,res)
     //Use Session dont send back stuff via URL, Security Issue must Fix This
     var search=encodeURIComponent(ans);
     res.redirect("/Property/search/result?valid="+search);
-});
-/*=======================================
-    To Handle Erroes (Shift to app.js)
-=========================================*/
-router.get("*", function(req,res){
-    res.send("What You are looking for has not been found");
 });
 module.exports= router;
