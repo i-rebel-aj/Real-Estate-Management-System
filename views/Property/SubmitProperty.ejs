@@ -1,0 +1,165 @@
+<%-include("../partials/header")%>
+<h1>Property will be submited here</h1>
+<div class="container">
+    <form action="/Property/submit" method="POST">
+    <h5>Basic Property Details</h5>
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="inputState">Type</label>
+          <select id="Property_Type" class="form-control" name="Type" onchange="toggle()">
+            <option selected>Choose</option>
+            <option>Rent</option>
+            <option>Sale</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputState">Description</label>
+            <input type="textarea" class="form-control" placeholder="Description" name="Description">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="inputState">Plot Area</label>
+          <input type="text" class="form-control" placeholder="Plot_Area" name="Plot_Area">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="inputState">Facing Direction</label>
+          <select id="inputState" class="form-control" name="Face_Direction">
+            <option selected>North</option>
+            <option>South</option>
+            <option>East</option>
+            <option>West</option>
+            <option>North-East</option>
+            <option>North-West</option>
+            <option>South-East</option>
+            <option>South-West</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputCity">Property Name</label>
+            <input type="text" class="form-control" id="inputCity" placeholder="Property Name" name="Property_Name">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputCity">Furnishing</label>
+            <select id="inputState" class="form-control" name="Furnishing">
+                <option selected>Not Furnished</option>
+                <option>Partially Furnished</option>
+                <option>Fully Furnished</option>
+            </select>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputCity">Age Of Construction</label>
+            <input type="text" class="form-control" id="inputCity" placeholder="Age of Construction" name="Age_of_Construction_">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputCity">Number of Bedrooms</label>
+            <input type="text" class="form-control" id="inputCity" placeholder="Number of Bedrooms" name="No_of_Bedrooms">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputCity">Number of Lifts</label>
+            <input type="text" class="form-control" id="inputCity" placeholder="Number of Lifts" name="Number_of_lifts">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputCity">Number of Bathrooms</label>
+            <input type="text" class="form-control" id="inputCity" placeholder="Number of Bathrooms" name="Number_of_Bathrooms">
+        </div>
+      </div>
+      <!--For Address Only-->
+      <h5>Address of the provided property</h5>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="inputCity">Unit Number</label>
+            <input type="text" class="form-control" id="inputCity" placeholder="Unit/House Number" name="Unit_No">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputCity">Building</label>
+            <input type="text" class="form-control" id="inputCity" placeholder="Building" name="Building">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputZip">Street</label>
+            <input type="text" class="form-control" placeholder="Street" name="Street">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="inputZip">Sector</label>
+            <input type="text" class="form-control" placeholder="Sector" name="Sector">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="inputCity">District</label>
+          <input type="text" class="form-control" id="inputCity" placeholder="District" name="District">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="inputState">State</label>
+          <select id="inputState" class="form-control" name="State">
+            <option selected>Assam</option>
+            <option>Haryana</option>
+            <option>Uttrakhand</option>
+            <option>Uttar Pradesh</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputZip">Postal Code</label>
+            <input type="text" class="form-control" placeholder="Postal Code" name="Postal_code">
+        </div>
+      </div>
+      <h5> Further Details</h5>
+      <div class="form-row" id="For_Rent" style="display: flex;">
+        <div class="form-group col-md-3">
+            <label for="inputZip">Preferred Tennats</label>
+            <select id="inputState" class="form-control" name="Preferred">
+                <option selected>Family</option>
+                <option>Couples</option>
+                <option>Bachelor</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputZip">Rent Per Month</label>
+            <input type="text" class="form-control" placeholder="Monthy Rent" name="Rent_PM">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputZip">Contract Duration</label>
+            <input type="text" class="form-control" placeholder="Contract Duration" name="Contract_Duration">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputZip">Type of Ownership</label>
+            <select id="inputState" class="form-control" name="Preferred">
+                <option selected>Power of Attourney</option>
+                <option>Tennant</option>
+             </select>
+        </div>
+      </div>
+      <div class="form-row" id="For_Sale" style="display: flex;">
+        <div class="form-group col-md-6">
+            <label for="inputZip">Booking Price</label>
+            <input type="text" id="inputState" class="form-control" placeholder="Booking Price" name="Booring_Price">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputZip">Price</label>
+            <input type="text" class="form-control" placeholder="Total Price" name="Price">
+        </div>
+      </div>
+    </form>
+  </div>
+  <script>
+      function toggle(){
+        var x=document.getElementById("Property_Type").value;
+        var Rent=document.getElementById("For_Rent");
+        var Sale=document.getElementById("For_Sale");
+        console.log(x);    
+        if(x==="Rent"){
+            Sale.style.display='none';
+            Rent.style.display='flex';
+        }else if(x==="Sale"){
+            Sale.style.display='flex';
+            Rent.style.display='none';
+        }else{
+            Sale.style.display='none';
+            Rent.style.display='none';
+        }
+    }
+       
+  </script>
+<%-include("../partials/footer")%>

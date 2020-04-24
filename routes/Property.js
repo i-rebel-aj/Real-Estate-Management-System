@@ -27,7 +27,6 @@ router.get("/search", function(req,res){
     //res.send("Form To Search for property will be shown here");
     res.render("./Property/SearchProperty");
 });
-
 /*==========================================
     Route To Display Seach Results
 ============================================*/
@@ -51,6 +50,9 @@ router.get("/search/result", function(req,res){
         }
     });
     //console.log(req.query.valid);
+});
+router.get("/submit", function(req,res){
+    res.render("./Property/SubmitProperty");
 });
 /*===============================================================
     Post Request To Handle Search And Generate A Dynamic Query 
